@@ -9,7 +9,12 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play Snoot Elysium.</tw-noscript></noscript></tw-story>
-<tw-storydata name="Snoot Elysium" startnode="1" creator="Twine" creator-version="2.7.1" format="Harlowe" format-version="3.3.7" ifid="5CA97AF0-1119-442A-B35F-B728EFDFC5FA" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="start" tags="" position="800,400" size="100,100">{
+<tw-storydata name="Snoot Elysium" startnode="1" creator="Twine" creator-version="2.7.1" format="Harlowe" format-version="3.3.7" ifid="5CA97AF0-1119-442A-B35F-B728EFDFC5FA" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="start" tags="" position="800,0" size="100,100">{
+&lt;!--STATUS--&gt;
+(set: $health to 3)
+(set: $morale to 3)
+(set: $xp to 0)
+
 &lt;!--SKILLS--&gt;
 (set: $streetSmarts to 2)
 (set: $bookSmarts to 3)
@@ -21,6 +26,7 @@
 (set: $leftHand to &quot;Empty&quot;)
 (set: $rightHand to &quot;Empty&quot;)
 (set: $attire to &quot;Worn jacket&quot;)
+(set: $money to 0)
 
 &lt;!--META--&gt;
 (set: $lb to &quot;[&quot;)
@@ -37,23 +43,153 @@
 
 &#39;&#39;FITNESS&#39;&#39; $fitness - Bet I can climb that tree faster than you! ...Okay well, but I can hock a loogie farther.
 
-[[Start -&gt; day1scene1]]</tw-passagedata><tw-passagedata pid="2" name=" day1scene1" tags="" position="800,525" size="100,100">You step out onto the porch, taking in the late afternoon suburbia atmosphere. //Go get your sister!// your father directed, tearing you from the wartime documentary series on the history channel you were watching.
+[[Start -&gt;intro1]]</tw-passagedata><tw-passagedata pid="2" name="day1scene1" tags="" position="800,1000" size="100,100">You step out onto the porch, taking in the late afternoon suburban atmosphere. //Go get your sister!// your father directed, tearing you from the wartime documentary series on the history channel you were watching.
 
 You loathe having to go outside to look for your stupid sister, especially because you suspect good ol&#39; dad was just pawning his duties off on you. It&#39;s not your fault that you have so much freetime, being on sick leave and all. Or maybe it was an effort to get you to socialize, as you&#39;re quite sure Amber must still be with her girlfriends if she hadn&#39;t come home yet.
 
-But eh... It was a rerun anyway, and you could use a walk. Maybe you can ever coerce Amber into paying for a slice of Moe&#39;s on your way back, what for your heroic sacrifice and all.
+But eh... It was a rerun anyway, and you could use a walk. Maybe you can ever coerce Amber into paying for a slice of Moe&#39;s on your way back, what for your heroic sacrifice alone.
 
-
-[[$lb{}Street smarts - Trivial{}$rb Look around-&gt; day1scene-lookAround]]
+\(unless: (history:) contains &quot;day1scene1 lookAround&quot;)[
+[[$lb{}Street Smarts - Trivial{}$rb Look around -&gt;day1scene1 lookAround]]{
+}]
+[[Start walking -&gt;day1scene2]]
 
 [[Inventory]]
-[[Thoughts]]</tw-passagedata><tw-passagedata pid="3" name="Inventory" tags="" position="1125,400" size="100,100">Left hand: $leftHand
+[[Thoughts]]
+[[Status]]</tw-passagedata><tw-passagedata pid="3" name="Inventory" tags="" position="300,200" size="100,100">Left hand: $leftHand
 Right hand: $rightHand
 Attire: $attire
 
-$return</tw-passagedata><tw-passagedata pid="4" name="Thoughts" tags="" position="1000,400" size="100,100">Your head is empty...
+Money: $$money
 
-$return</tw-passagedata><tw-passagedata pid="5" name=" day1scene-lookAround" tags="" position="800,650" size="100,100">Suburbs to the right, suburbs to the left. It&#39;s the world you&#39;ve known since you knew your world. Plently of memories, but none that stand out. The most interesting thing that happened might just have been that one time the ice cream truck broke down in the cul-de-sac behind your house, and the poor guy had to give away his merchanise for free.
+$return</tw-passagedata><tw-passagedata pid="4" name="Thoughts" tags="" position="300,300" size="100,100">Your head is empty...
+
+$return</tw-passagedata><tw-passagedata pid="5" name="day1scene1 lookAround" tags="" position="1000,1000" size="100,100">(if: (random: 2*$streetSmarts,20) &gt; 18)[
+(text-colour:green)[Success!]
+
+Suburbs to the right, suburbs to the left. It&#39;s the world you&#39;ve known since you&#39;ve known your world. Plently of memories, but none that stand out. The most interesting thing that happened might just have been that one time the ice cream truck broke down in the cul-de-sac behind your house, and the poor guy had to give away his merchanise for free.
+{(set: $xp to $xp + 5)}
++5 XP
+](else:)[
+(text-colour:red)[Failure!]
+
+Nothing. There&#39;s nothing. The great green wasteland of the realm of suburbia.
+]
+
+$return</tw-passagedata><tw-passagedata pid="6" name="Status" tags="" position="300,100" size="100,100">Health: $health
+Morale: $morale
+XP: $xp/100
+
+$return</tw-passagedata><tw-passagedata pid="7" name="day1scene2" tags="" position="800,1200" size="100,100">You make your way down the street toward the school, where Amber should still most likely be, occupying your mind with avoiding the many cracks in the sidewalk. The wind carries a scent of rain, and of freshly cut grass, and the sounds of quiet conversations. There&#39;s a storm coming in, but you don&#39;t worry. You&#39;re sure you&#39;ll be back in the safety of your room by the time it hits.
+
+[[Listen to the wind -&gt;day1scene2 listen]]
+[[Feel the wind -&gt;day1scene2 feel]]
+[[Taste the wind -&gt;day1scene2 taste]]
+[[Move on -&gt;day1scene3]]
+
+[[Inventory]]
+[[Thoughts]]
+[[Status]]</tw-passagedata><tw-passagedata pid="8" name="day1scene2 listen" tags="" position="1000,1300" size="100,100"></tw-passagedata><tw-passagedata pid="9" name="day1scene2 feel" tags="" position="1000,1400" size="100,100"></tw-passagedata><tw-passagedata pid="10" name="day1scene2 taste" tags="" position="1000,1200" size="100,100"></tw-passagedata><tw-passagedata pid="11" name="day1scene3" tags="" position="800,1600" size="100,100"></tw-passagedata><tw-passagedata pid="12" name="intro1" tags="" position="800,200" size="100,100">A disembodied voice breaks through the sweet, warm darkness that is your world. You know it, it&#39;s a nice voice - but today you wish you didn&#39;t. For today all you want is to be left alone, eyes shut and background static in your ears.
+
+Voice: Come on chump, get up!
+
+[[Ignore it -&gt;intro1 ignore]]
+[[&quot;Ugh... Do I have to?&quot; -&gt;intro1 doihaveto]]
+[[&quot;Fine...&quot; -&gt;intro1 fine]]</tw-passagedata><tw-passagedata pid="13" name="intro1 doihaveto" tags="" position="1000,300" size="100,100">Voice: Yes, you do.
+
+It&#39;s the answer you feared. But one that you expected.
+
+[[&quot;What do you want?&quot; -&gt;intro1 fine]]</tw-passagedata><tw-passagedata pid="14" name="intro1 fine" tags="" position="1000,400" size="100,100">Opening your eyes and letting the world in, a room emerges from the darkness. It&#39;s the living room of your home where you nodded off, listening to your favorite documentary series while laying on the couch. A mug of formerly-hot chocolate rests on the coffee table in front of you.
+
+There are images of violent fighting flashing by on the TV in the room, though obscured from your view by a great big body looming over yours. Your father.
+
+Anon Mous: I have a task for you, Green.
+
+You sit up, rubbing the last remnants of sleep from your eyes.
+\(if: $espirit &gt;= 3)[
+
+$lb{}Espirit de Sanguine{}$rb{}: As you do, you can&#39;t help but notice a blanket covering your body, one that you don&#39;t recall putting there.{
+}]
+
+\(unless: (history:) contains &quot;intro1 tv&quot;)[
+[[$lb{}Book Smarts - Normal{}$rb Try to figure out who&#39;s fighting whom on the screen -&gt;intro1 tv]]{
+}]
+[[&quot;What is it?&quot; -&gt;intro2]]
+[[&quot;Can&#39;t someone else do it?&quot; -&gt;intro1 cantsomeoneelsedoit]]</tw-passagedata><tw-passagedata pid="15" name="intro1 ignore" tags="" position="1000,200" size="100,100">No, you don&#39;t want to get up. It&#39;s possibly the last thing on your mind right now, daydreaming about tanks and soldiers, of a great battlefield full of glory and heroic deeds. *That* is the kind of world you want to, if not live in, but at least imagine that you do.
+
+But the voice is incessant, breaking through your armor-plated barriers of rebellion.
+
+Voice: Don&#39;t you ignore me, young man!
+
+[[&quot;I&#39;m not a man.&quot; -&gt;intro1 imnotaman]]
+[[&quot;Fine...&quot; -&gt;intro1 fine]]</tw-passagedata><tw-passagedata pid="16" name="intro1 imnotaman" tags="" position="1200,200" size="100,100">Voice: No? Then what are you?
+\(if: $espirit &gt;= 3)[
+
+$lb{}Espirit de Sanguine{}$rb{}: The question takes you unprepared in its plainness. Just what... and *who* are you?{
+}]
+\(if: $popularity &gt;= 3)[
+
+$lb{}Popularity{}$rb{}: A legend. Obviously.{
+}]
+
+[[&quot;I&#39;m me.&quot; -&gt;intro1 imme]]
+[[&quot;Nevermind.&quot; -&gt; intro1 nvm]]</tw-passagedata><tw-passagedata pid="17" name="intro1 imme" tags="" position="1400,200" size="100,100">You hear a chuckle, amused by your antics.
+
+Voice: Okay, well, hello &quot;me&quot;.
+
+It&#39;s not a very good joke. But it is an expected one.
+
+[[&quot;Haha, dad, very funny.&quot; -&gt;intro1 fine]]</tw-passagedata><tw-passagedata pid="18" name=" intro1 nvm" tags="" position="1400,300" size="100,100">Voice: We ain&#39;t got all day.
+
+There&#39;s some urgency in the tone of the voice now, and you can&#39;t deny it an answer any longer.
+
+[[&quot;What do you want?&quot; -&gt;intro1 fine]]</tw-passagedata><tw-passagedata pid="19" name="intro2" tags="" position="800,700" size="100,100">Your father sighs, turning the TV off to get your full attention.
+
+Dad: Your mother wants everyone to be ready for tonight. Your uncle is coming over, if you&#39;ll remember.  So I need you to get hold of your sister, like, ten minutes ago. Got it? You&#39;ve been lazying around all day already. Time to do something productive.
+
+[[&quot;Which uncle is it?&quot; -&gt;intro2 uncle]]
+\(unless: (history:) contains &quot;intro2 twenty&quot;)[
+[[$lb{}Street Smarts - Hard{}$rb &quot;I&#39;ll do it for a twenty.&quot; -&gt;intro2 twenty]]{
+}]</tw-passagedata><tw-passagedata pid="20" name="intro1 cantsomeoneelsedoit" tags="" position="1200,500" size="100,100">Anon Mous: No. And anyway, I&#39;ll help grow your character.
+
+[[&quot;That doesn&#39;t sound like fun.&quot; -&gt;intro2]]</tw-passagedata><tw-passagedata pid="21" name="intro2 uncle" tags="" position="1000,700" size="100,100">You notice a slight smile tug at the corner of your father&#39;s mouth. But his expression remains stern as usual.
+
+\(if: $popularity &gt;= 2)[
+
+$lb{}Popularity{}$rb{}: As you do, you can&#39;t help but notice a blanket covering your body, one that you don&#39;t recall putting there.{
+}]
+
+Anon Mous: It&#39;s your uncle Naser. He&#39;s bringing their whole lot, so we need to clean this up lickety-split. Including you and your sister.
+
+[[&quot;Fine...&quot; -&gt; intro end]]</tw-passagedata><tw-passagedata pid="22" name="intro2 twenty" tags="" position="1000,800" size="100,100">(if: (random: 2*$streetSmarts,20) &gt; 10)[
+(text-colour:green)[Success!]
+
+With another sigh, good ol&#39; daddy-o reaches into his back pocket, producing a crumpled bank note.
+{(set: $xp to $xp + 5)}
+{(set: $money to $money + 20)}
++5 XP
+](else:)[
+(text-colour:red)[Failure!]
+He doesn&#39;t look impressed.
+
+Dad: Nice try, kid.
+]
+
+$return</tw-passagedata><tw-passagedata pid="23" name=" intro end" tags="" position="875,850" size="100,100">Considering your business now concluded, your father &quot;escorts&quot; you to the door.
+
+[[Leave... -&gt;day1scene1]]</tw-passagedata><tw-passagedata pid="24" name="intro1 tv" tags="" position="1200,400" size="100,100">(if: (random: 2*$bookSmarts,20) &gt; 10)[
+(text-colour:green)[Success!]
+
+A bomb threat. Cheap whiskey. Margaret Tatchrex. Dead horses.
+
+Gotta be a raid on the IRA.
+{(set: $xp to $xp + 5)}
++5 XP
+](else:)[
+(text-colour:red)[Failure!]
+
+There&#39;s not much raw inteligence in that drowsy head of yours right now. For all you can make out, it could be any modern-day skirmish from the last three decades.
+]
 
 $return</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
